@@ -30,3 +30,4 @@ print("broadcast result:", x.sum())
 dist.all_reduce(x)
 print("allreduce result:", x.sum())
 
+dist.destroy_process_group()
