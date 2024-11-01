@@ -2,6 +2,7 @@ import argparse
 
 import torch
 import torch.distributed as dist
+from datetime import timedelta
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--local-rank", "--local_rank", type=int)
@@ -13,7 +14,7 @@ local_rank = args.local_rank
 torch.cuda.set_device(local_rank)
 device = torch.device("cuda", local_rank)
 
-torch.distributed.init_process_group(backend="nccl", init_method="env://")
+torch.distributed.init_process_group(backend="nccl", init_method="env://", timeout=timedelta(seconds=60))
 
 # Allocate a tensor on the gpu
 shape = 2**17
